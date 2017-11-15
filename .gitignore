@@ -1,0 +1,27 @@
+# default application storage directory used by the IDE Performance Cache feature
+.data/
+
+# used for ADF styles caching
+temp/
+
+# default output directories
+target/
+classes/
+deploy/
+javadoc/
+data/
+sql/
+out/
+log/
+resources/
+
+# lock file, a part of Oracle Credential Store Framework
+cwallet.sso.lck
+
+# IDE generated files
+.idea/
+*.iml
+*.log
+
+# Jar packing
+MANIFEST.MF
