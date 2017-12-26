@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         SparkSession spark = SparkSession
                 .builder()
-//                .master("spark://10.77.40.236:7077")
+//                .master("spark://10.77.40.27:7077")
                 .appName("BBM-1M")
                 .getOrCreate();
         JavaRDD<Point> point = spark.read().textFile("/rainbow-manage/Points.txt").javaRDD().map(new Function<String, Point>() {

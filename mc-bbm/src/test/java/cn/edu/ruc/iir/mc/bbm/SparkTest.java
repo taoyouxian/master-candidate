@@ -8,6 +8,8 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.testng.annotations.Test;
 
+import java.io.Serializable;
+
 /**
  * @version V1.0
  * @Package: cn.edu.ruc.iir.mc.bbm
@@ -16,7 +18,7 @@ import org.testng.annotations.Test;
  * @author: taoyouxian
  * @date: Create in 2017-11-12 10:51
  **/
-public class SparkTest {
+public class SparkTest implements Serializable {
 
     @Test
     public void WeatherCsvTest() {
@@ -24,17 +26,17 @@ public class SparkTest {
                 .builder()
                 .master("spark://10.77.40.236:7077")
                 .appName("BBM-Demo")
-                .config("spark.executor.memory", "4g")
-                .config("spark.driver.memory", "2g")
-                .config("spark.executor.cores", "4")
-                .config("spark.sql.warehouse.dir", "hdfs://10.77.40.236:9000/spark-warehouse")
-                .config("spark.storage.memoryFraction", "0")
+//                .config("spark.executor.memory", "4g")
+//                .config("spark.driver.memory", "2g")
+//                .config("spark.executor.cores", "4")
+//                .config("spark.sql.warehouse.dir", "hdfs://10.77.40.236:9000/spark-warehouse")
+//                .config("spark.storage.memoryFraction", "0")
                 .getOrCreate();
 //        Dataset<Row> dataset = spark.read().option("header", "true").csv("/rainbow-manage/weather.csv");
         Dataset<Row> dataset = spark.read().option("header", "true").csv("/rainbow-manage/weatherss.csv");
         dataset.createOrReplaceTempView("weather");
         try {
-            Dataset<Row> weatherDF = spark.sql("SELECT location, month, avg(temperature) as temp FROM weather where location = 'BRBRGTWN' GROUP BY location, month ORDER BY month");
+            Dataset<Row> weatherDF = spark.sql("SELECT location, month, avg(temperature) as temp FROM weather where location = 'ABTIRANA' GROUP BY location, month ORDER BY month");
             weatherDF.show();
         } catch (Exception e) {
             System.out.print("Error Info: " + e.getMessage());
@@ -45,7 +47,7 @@ public class SparkTest {
     public void WeatherTextTest() {
         SparkSession spark = SparkSession
                 .builder()
-//                .master("spark://10.77.40.236:7077")
+                .master("spark://10.77.40.236:7077")
                 .appName("BBM-1M")
                 .getOrCreate();
         JavaRDD<Weather> weatherJavaRDD = spark.read().textFile("/rainbow-manage/weathers.csv").javaRDD().map(new Function<String, Weather>() {

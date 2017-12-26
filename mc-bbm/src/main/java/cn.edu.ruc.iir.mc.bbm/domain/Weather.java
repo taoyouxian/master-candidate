@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by Tao on 2017/4/13.
  */
 public class Weather implements Serializable {
+    private static final long serialVersionUID = 7247714666080613254L;
     private String location;
     private int month;
     private int dayofyear;
